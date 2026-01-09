@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem Regressiva</title>
+    <style>
+        /* Estilo "Normal" e Limpo */
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        #timer {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        #mensagem {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="titulo">Tempo restante:</h1>
+        <div id="timer">Carregando...</div>
+        <div id="mensagem">QUE COMECE O PESADELO</div>
+    </div>
+
+    <script>
+        // Configuração: 2 de Fevereiro de 2026
+        const dataAlvo = new Date("Feb 2, 2026 00:00:00").getTime();
+        const rickRollUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+        const intervalo = setInterval(function() {
+            const agora = new Date().getTime();
+            const distancia = dataAlvo - agora;
+
+            // Cálculos de tempo
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            // Exibição formatada
+            document.getElementById("timer").innerHTML = 
+                dias + "d " + horas + "h " + minutos + "m " + segundos + "s";
+
+            // Quando chegar no dia
+            if (distancia < 0) {
+                clearInterval(intervalo);
+                
+                // Esconde o contador e mostra a mensagem
+                document.getElementById("timer").style.display = "none";
+                document.getElementById("titulo").style.display = "none";
+                document.getElementById("mensagem").style.display = "block";
+
+                // Redireciona após 2 segundos para dar tempo de ler a frase
+                setTimeout(function() {
+                    window.location.href = rickRollUrl;
+                }, 2000);
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
